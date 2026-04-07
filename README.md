@@ -1,1 +1,1 @@
-"# StudyTypeScript" 
+# StudyTypeScript
