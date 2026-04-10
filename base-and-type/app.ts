@@ -1,7 +1,11 @@
-// tsc .\app.ts 컴파일
+function add(n1: number, n2: number) {
+    return n1 + n2;
+}
 
-// npm install --save-dev lite-server
-// npm start
-// http://localhost:3000/ 이용
+// const number1 = "5";
+const number1 = 5;
+const number2 = 2.8;
 
-console.log("Hello TypeScript...")
+const result = add(number1, number2);
+
+console.log(result);
