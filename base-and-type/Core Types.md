@@ -4,3 +4,4 @@
 - string
 - boolean
 - object
+- Array
