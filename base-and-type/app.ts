@@ -38,8 +38,8 @@ if(person.role === Role.ADMIN) {
 }
 
 
-let favoriteActivities: string[];
-favoriteActivities = ["Sports"];
+let favoriteActivities: any[]; // 타입의 값이 무엇인지 불확실
+favoriteActivities = ["Sports", 1, 2, "Cooking"];
 
 console.log(person.name)
 
