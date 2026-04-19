@@ -1,28 +1,10 @@
-function add(n1: number, n2: number): number {
-    return n1 + n2;
+let userInput: unknown;
+let userName: string;
+
+userInput = 5;
+userInput = "Ygs";
+// userName - userInput; 컴파일 오류, unknown이 아닌 any 일 경우 가능
+
+if(typeof userInput === "string"){
+  userName = userInput; // 타입 체크 후에 사용시 컴파일 오류 발생 안함
 }
-
-function printResult(num: number): void { // undefined 반환 됨
-    console.log("Result: " + num);
-}
-
-printResult(add(5, 12))
-
-// let combineValues: Function // 함수의 변수 및 리턴 타입 오류를 적절히 잡아낼 수 없음
-let combineValues: (a: number, b: number) => number;
-combineValues = add;
-
-// 컴파일 오류
-// combineValues = 5;
-// combineValues = printResult();
-
-console.log(combineValues(8 ,8));
-
-function addAndHandle(n1: number, n2: number, cb: (num: number) => void){
-    const result = n1 + n2;
-    cb(result);
-}
-
-addAndHandle(10, 20, (result) => {
-    console.log(result);
-})
