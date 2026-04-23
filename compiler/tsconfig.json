@@ -39,6 +39,16 @@
     "isolatedModules": true,
     "noUncheckedSideEffectImports": true,
     "moduleDetection": "force",
-    "skipLibCheck": true,
-  }
+    "skipLibCheck": true
+  },
+  "exclude": [
+    "node_modules" // exclude를 추가하지 않았을 경우에는 본값으로 제외되어 있음,
+  ],
+//  "included": [
+//    "app.ts",
+//    "analytics.ts"
+//  ]
+//  "files": [
+//    "app.ts"
+//  ]
 }
