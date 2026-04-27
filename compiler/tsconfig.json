@@ -25,6 +25,7 @@
     "declaration": true,
     "declarationMap": true,
     "removeComments": true,
+    "noEmitOnError": true,
 
     // Stricter Typechecking Options
     "noUncheckedIndexedAccess": true,
@@ -40,6 +41,9 @@
 
     // Recommended Options
     "strict": true,
+//    "noImplicitAny": false,
+//    "strictNullChecks": false,
+//    "strictBindCallApply": false,
     "jsx": "react-jsx",
     "verbatimModuleSyntax": true,
     "isolatedModules": true,
@@ -48,7 +52,8 @@
     "skipLibCheck": true
   },
   "exclude": [
-    "node_modules" // exclude를 추가하지 않았을 경우에는 본값으로 제외되어 있음,
+    "node_modules", // exclude를 추가하지 않았을 경우에는 본값으로 제외되어 있음,
+    "dist"
   ],
 //  "included": [
 //    "app.ts",
