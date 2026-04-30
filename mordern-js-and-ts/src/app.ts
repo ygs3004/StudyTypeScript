@@ -19,7 +19,7 @@ function add2(a: number, b: number) {
 
 
 // arrow function
-const add = (a: number, b: number) => a + b;
+const add = (a: number, b: number = 1) => a + b;
 
 console.log(add(2, 5));
 
@@ -32,4 +32,27 @@ if (button) {
     button.addEventListener("click", event => console.log(event));
 }
 
-printOutput(add(5, 2));
+printOutput(add(5));
+
+
+// 스프레드 연산자
+let hobbies = ["Sports", "Cooking"];
+const activeHobbies = ["Hiking"];
+
+activeHobbies.push(...hobbies);
+
+const person = {
+    name: "Ygs",
+    age: 37,
+}
+
+const copiedPerson = { ...person };
+
+const addFunction = (...numbers: number[]) => {
+    return numbers.reduce((curResult, curValue) => {
+        return curResult + curValue;
+    }, 0);
+}
+
+const addedNumbers = addFunction(5, 10, 2, 3, 7);
+console.log(addedNumbers);
