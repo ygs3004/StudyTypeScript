@@ -1,9 +1,9 @@
 // let & const
-const userName = "YGS";
+// const userName = "YGS";
 // userName = "Yoon Gun Soo"
-
-let age = 30;
-age = 29;
+//
+// let age = 30;
+// age = 29;
 
 function add2(a: number, b: number) {
     let result;
@@ -42,7 +42,7 @@ const activeHobbies = ["Hiking"];
 activeHobbies.push(...hobbies);
 
 const person = {
-    name: "Ygs",
+    firstName: "Ygs",
     age: 37,
 }
 
@@ -56,3 +56,11 @@ const addFunction = (...numbers: number[]) => {
 
 const addedNumbers = addFunction(5, 10, 2, 3, 7);
 console.log(addedNumbers);
+
+// const hobby1 = hobbies[0];
+// const hobby2 = hobbies[1];
+const[hobby1, hobby2, ...remainingHobbies] = hobbies;
+console.log(hobbies, hobby1, hobby2);
+
+const { firstName: userName, age } = person;
+console.log(userName, age);
