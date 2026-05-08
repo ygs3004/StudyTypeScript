@@ -1,13 +1,15 @@
 class Department {
-    public name: string;
+    // private id: string;
+    // public name: string;
     private employees: string[] = [];
 
-    constructor(n: string) {
-        this.name = n;
+    constructor(private id: string, public name: string) {
+        // this.id = id;
+        // this.name = n;
     }
 
     describe(this: Department) { // 현재 객체를 참조하는 것을 명시하여 컴파일 시점에서 오류 방지
-        console.log("Department: " + this.name);
+        console.log(`Department (${this.id}): ${this.name}`);
     }
 
     addEmployee(employee: string) {
@@ -20,7 +22,7 @@ class Department {
     }
 }
 
-const accounting = new Department("Accounting");
+const accounting = new Department("d1", "Accounting");
 
 accounting.addEmployee("Faker");
 accounting.addEmployee("Keria");
