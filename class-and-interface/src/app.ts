@@ -23,16 +23,38 @@ class Department {
     }
 }
 
-const accounting = new Department("d1", "Accounting");
+class ITDepartment extends Department {
+    constructor(id: string, public admins: string[]) {
+        super(id, "IT");
+    }
+}
 
-accounting.addEmployee("Faker");
-accounting.addEmployee("Keria");
+class AccountingDepartment extends Department {
+    constructor(id: string, public reports: string[]) {
+        super(id, "Accounting");
+    }
 
-// accounting.employees[2] = "Oner"; // private 접근 제한자로 접근을 막을 수 있다
+    addReport(text: string) {
+        this.reports.push(text)
+    }
 
-accounting.describe();
-accounting.name = "NEW NAME"; // public 접근 제한자는 접근 가능
-accounting.printEmployeeInformation();
+    printReports() {
+        console.log(this.reports);
+    }
+}
 
-// const accountingCopy = { name: "other", describe: accounting.describe };
-// accountingCopy.describe();
+const it = new ITDepartment("d1", ["Yoon"]);
+
+it.addEmployee("Faker");
+it.addEmployee("Keria");
+
+// it.employees[2] = "Oner"; // private 접근 제한자로 접근을 막을 수 있다
+
+it.describe();
+it.name = "NEW NAME"; // public 접근 제한자는 접근 가능
+it.printEmployeeInformation();
+
+const accounting = new AccountingDepartment("d2", []);
+
+accounting.addReport("Something");
+accounting.printReports();
