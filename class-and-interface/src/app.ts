@@ -1,7 +1,7 @@
 class Department {
     // private readonly id: string;
     // public name: string;
-    private employees: string[] = [];
+    protected employees: string[] = []; // protected => 상속 받은 경우 접근 가능
 
     constructor(private readonly id: string, public name: string) {
         // this.id = id;
@@ -34,6 +34,14 @@ class AccountingDepartment extends Department {
         super(id, "Accounting");
     }
 
+    addEmployee(name: string) {
+        if (name === "Ygs") {
+            return;
+        }
+
+        this.employees.push(name);
+    }
+
     addReport(text: string) {
         this.reports.push(text)
     }
@@ -55,6 +63,10 @@ it.name = "NEW NAME"; // public 접근 제한자는 접근 가능
 it.printEmployeeInformation();
 
 const accounting = new AccountingDepartment("d2", []);
+
+accounting.addEmployee("Ygs");
+accounting.addEmployee("Deft");
+accounting.printEmployeeInformation();
 
 accounting.addReport("Something");
 accounting.printReports();
