@@ -1,4 +1,5 @@
 class Department {
+    static fiscalYear = 2026;
     // private readonly id: string;
     // public name: string;
     protected employees: string[] = []; // protected => 상속 받은 경우 접근 가능
@@ -6,6 +7,13 @@ class Department {
     constructor(private readonly id: string, public name: string) {
         // this.id = id;
         // this.name = n;
+        // console.log(this.fiscalYear); static 메서드와 속성은 인스턴트에 속해있지 않으므로 this 로 되지 않음
+    }
+
+    static createEmployee(name: string) {
+        return {
+            name: name
+        }
     }
 
     describe(this: Department) { // 현재 객체를 참조하는 것을 명시하여 컴파일 시점에서 오류 방지
@@ -69,6 +77,9 @@ class AccountingDepartment extends Department {
         console.log(this.reports);
     }
 }
+
+const employee1 = Department.createEmployee("Alice");
+console.log(employee1, Department.fiscalYear);
 
 const it = new ITDepartment("d1", ["Yoon"]);
 
