@@ -111,4 +111,13 @@ const userInputElement = document.getElementById("user-input") as HTMLInputEleme
 
 if(userInputElement) {
     userInputElement.value = "Hi there!";
+};
+
+interface ErrorContainer{
+    [prop: string]: string; // key 값이 string 이고 값인 string 인 속성들이 존재 가능
+}
+
+const errorBag: ErrorContainer = {
+    email: "이메일 형식이 아닙니다.",
+    username: "대문자로 시작해야 합니다."
 }
