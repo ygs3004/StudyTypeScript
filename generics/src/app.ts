@@ -32,10 +32,44 @@ function countAndDescribe<T extends Lengthy>(element: T): [T, string] {
     return [element, descriptionText];
 }
 
-console.log(countAndDescribe("Hi there!"));
 console.log(countAndDescribe(["Sports", "Game"]));
 
 function extractAndConvert<T extends object, U extends keyof T>(obj: T, key: U) {
     return "value: "+ obj[key];
 }
-extractAndConvert({name: "Ygs"}, "name")
+extractAndConvert({name: "Ygs"}, "name");
+
+class DataStorage<T extends string | number> {
+    private data: T[] = [];
+
+    addItem(item: T) {
+        this.data.push(item);
+    }
+
+    removeItem(item: T) {
+        if(this.data.indexOf(item) === -1) {
+            return;
+        }
+        this.data.splice(this.data.indexOf(item), 1);
+    }
+
+    getItems() {
+        return [...this.data];
+    }
+}
+
+const textStorage = new DataStorage<string>();
+textStorage.addItem("Yoon");
+textStorage.addItem("Gunsoo");
+textStorage.removeItem("Gunsoo");
+console.log(textStorage.getItems());
+
+const numberStorage = new DataStorage<number>();
+
+// const objStorage = new DataStorage<object>();
+// const yoonObj = {name: "Yoon"};
+// objStorage.addItem(yoonObj);
+// objStorage.addItem({name: "Gunsoo"});
+// objStorage.removeItem(yoonObj);
+// console.log(objStorage.getItems());
+
