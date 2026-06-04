@@ -2,6 +2,8 @@
 
 // 데코레이터
 function Logger(logString: string) {
+    console.log("Logger Factory");
+
     return function (constructor: Function) {
         console.info(logString);
         console.log(constructor);
@@ -10,7 +12,10 @@ function Logger(logString: string) {
 }
 
 function WithTemplate(template: string, hookId: string) {
+    console.log("Template Factory");
+
     return function (constructor: any) {
+        console.log("Rendering template")
         const hookEl = document.getElementById(hookId);
         const p = new constructor();
         if (hookEl) {
@@ -20,7 +25,9 @@ function WithTemplate(template: string, hookId: string) {
     }
 }
 
-// @Logger("Logging - Person")
+// factory function 자체는 위에서 아래로
+// factory function 에서 return 한 데코레이터 function 은 아래에서 위 순서 실행된다.
+@Logger("Logging - Person")
 @WithTemplate("<h1>My Person Object</h1>", "app")
 class Person {
     name = "Ygs";
