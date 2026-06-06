@@ -13,15 +13,18 @@ function Logger(logString: string) {
 
 function WithTemplate(template: string, hookId: string) {
     console.log("Template Factory");
-
-    return function (constructor: any) {
-        console.log("Rendering template")
-        const hookEl = document.getElementById(hookId);
-        const p = new constructor();
-        if (hookEl) {
-            hookEl.innerHTML = template;
-            hookEl.querySelector("h1")!.textContent = p.name;
-        }
+    return function<T extends {new(...args: any[]): {name: string}}> (originalConstructor: T) {
+        return class extends originalConstructor { // constructor를 변경시 해당 데코레이터가 적용된 클래스가 생성될 때 적용, 문법적 설탕
+            constructor(..._: any[]) {
+                super();
+                console.log("Rendering template")
+                const hookEl = document.getElementById(hookId);
+                if (hookEl) {
+                    hookEl.innerHTML = template;
+                    hookEl.querySelector("h1")!.textContent = this.name;
+                }
+            }
+        };
     }
 }
 
@@ -81,9 +84,9 @@ class Product{
         }
     }
 
-    constructor(t: string) {
+    constructor(t: string, p: number) {
         this.title = t;
-        this._price = 0;
+        this._price = p;
     }
 
     @Log3
@@ -91,3 +94,5 @@ class Product{
         return this._price * (1 + tax);
     }
 }
+
+const p1 = new Product("Book", 19);
