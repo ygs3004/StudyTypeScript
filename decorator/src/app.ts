@@ -96,3 +96,33 @@ class Product{
 }
 
 const p1 = new Product("Book", 19);
+
+// descriptor 를 변경하는 메서드 데코레이터
+function AutoBind(_target: any, _methodName: string, descriptor: PropertyDescriptor) {
+    const originalMethod = descriptor.value;
+    const adjDescriptor: PropertyDescriptor = {
+        configurable: true,
+        enumerable: false,
+        get() {
+            // getter 내부의 this 는 getter를 정의한 객체를 가리킴
+            const boundFn = originalMethod.bind(this);
+            return boundFn;
+        },
+    }
+    return adjDescriptor;
+}
+
+class Printer {
+    message = "This works";
+
+    @AutoBind
+    showMessage() {
+        console.log(this.message);
+    }
+}
+
+const p = new Printer();
+
+const button = document.querySelector("button")!;
+// button.addEventListener("click", p.showMessage.bind(p)); Autobind를 쓰지 않을경우
+button.addEventListener("click", p.showMessage);
