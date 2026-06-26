@@ -63,6 +63,19 @@ class ProjectState extends State<Project> {
         );
 
         this.projects.push(newProject);
+        this.updateListeners();
+
+    }
+
+    moveProject(projectId: string, newStatus: ProjectStatus) {
+        const project = this.projects.find(prj => prj.id === projectId);
+        if (project && project.status !== newStatus) {
+            project.status = newStatus;
+            this.updateListeners();
+        }
+    }
+
+    private updateListeners() {
         for (const listenerFn of this.listeners) {
             listenerFn(this.projects.slice()) // slice() => 복사본
         }
@@ -173,7 +186,8 @@ class ProjectItem extends Component<HTMLUListElement, HTMLLIElement> implements 
 
     @autobind
     dragStartHandler(event: DragEvent): void {
-        console.log("start",event);
+        event.dataTransfer!.setData("text/plain", this.project.id);
+        event.dataTransfer!.effectAllowed = "move";
     }
 
     @autobind
@@ -215,24 +229,34 @@ class ProjectList extends Component<HTMLDivElement, HTMLElement> implements Drag
     }
 
     @autobind
-    dragOverHandler(_event: DragEvent): void {
-        const listEl = this.element.querySelector("ul")!;
-        listEl.classList.add("droppable");
-    }
-
-    dropHandler(_event: DragEvent): void {
+    dragOverHandler(event: DragEvent): void {
+        if (event.dataTransfer && event.dataTransfer.types[0] === "text/plain") {
+            event.preventDefault(); // js 에선 preventDefault 해야 "drop" 이벤트가 발생할 수 있다..
+            const listEl = this.element.querySelector("ul")!;
+            listEl.classList.add("droppable");
+        }
     }
 
     @autobind
-    dragLeaveHandler(_event: DragEvent): void {
+    dropHandler(event: DragEvent): void {
+        const prjId = event.dataTransfer!.getData("text/plain");
+        projectState.moveProject(prjId, this.type === "active" ? ProjectStatus.Active : ProjectStatus.Finished);
+    }
+
+    @autobind
+    dragLeaveHandler(event: DragEvent): void {
         const listEl = this.element.querySelector("ul")!;
+        const related = event.relatedTarget as Node | null;
+        if (related && listEl.contains(related)) {
+            return; // 자식으로 이동한 것, 버블링 방지
+        }
         listEl.classList.remove("droppable");
     }
 
     configure() {
-        this.element.addEventListener("dragover", this.dragOverHandler);
-        this.element.addEventListener("dragleave", this.dragLeaveHandler);
-        this.element.addEventListener("drop", this.dropHandler);
+        this.element.addEventListener('dragover', this.dragOverHandler);
+        this.element.addEventListener('dragleave', this.dragLeaveHandler);
+        this.element.addEventListener('drop', this.dropHandler);
 
         projectState.addListener((projects: Project[]) => {
             const relevantProjects = projects.filter(prj => {
