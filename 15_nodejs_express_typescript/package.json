@@ -1,15 +1,21 @@
 {
-  "name": "15_nodejs_express_typescript",
+  "name": "understanding-ts",
   "version": "1.0.0",
+  "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon dist/app.js"
   },
   "author": "",
   "license": "ISC",
-  "description": "",
   "dependencies": {
-    "body-parser": "^2.3.0",
-    "express": "^5.2.1"
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.2",
+    "@types/node": "^12.12.9",
+    "nodemon": "^1.19.4"
   }
 }
